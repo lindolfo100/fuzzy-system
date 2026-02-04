@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Importador de Gastos</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>Importador de Gastos</h1>
+        <p>
+          Importe um CSV com as colunas <strong>data</strong>, <strong>valor</strong>,
+          <strong>id</strong> e <strong>descrição</strong> para visualizar seus gastos com
+          exatidão.
+        </p>
+      </header>
+
+      <section class="card">
+        <h2>Importar CSV</h2>
+        <div class="import-controls">
+          <label class="file-input">
+            <input type="file" id="csvInput" accept=".csv" />
+            <span>Escolher arquivo</span>
+          </label>
+          <button id="loadSample" type="button">Carregar exemplo</button>
+        </div>
+        <div class="helper">
+          <p>
+            Dica: Use ponto ou vírgula em valores. Datas podem ser ISO (2024-01-30) ou
+            DD/MM/AAAA.
+          </p>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Regras de categoria</h2>
+        <p>
+          Crie regras para classificar automaticamente os gastos. Cada regra procura palavras
+          na descrição.
+        </p>
+        <form id="ruleForm" class="rule-form">
+          <input type="text" id="ruleName" placeholder="Categoria" required />
+          <input
+            type="text"
+            id="ruleKeywords"
+            placeholder="Palavras-chave separadas por vírgula"
+            required
+          />
+          <button type="submit">Adicionar regra</button>
+        </form>
+        <div id="rulesList" class="rules-list"></div>
+      </section>
+
+      <section class="card">
+        <h2>Resumo</h2>
+        <div class="summary">
+          <div>
+            <span>Total de gastos</span>
+            <strong id="totalAmount">R$ 0,00</strong>
+          </div>
+          <div>
+            <span>Quantidade de lançamentos</span>
+            <strong id="totalCount">0</strong>
+          </div>
+        </div>
+        <div id="categorySummary" class="category-summary"></div>
+      </section>
+
+      <section class="card">
+        <h2>Gastos importados</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Valor</th>
+                <th>ID</th>
+                <th>Descrição</th>
+                <th>Categoria</th>
+              </tr>
+            </thead>
+            <tbody id="expensesBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <template id="ruleTemplate">
+      <div class="rule-item">
+        <div>
+          <strong class="rule-title"></strong>
+          <span class="rule-keywords"></span>
+        </div>
+        <button type="button" class="remove-rule">Remover</button>
+      </div>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>
